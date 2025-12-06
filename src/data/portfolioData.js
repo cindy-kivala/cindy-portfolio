@@ -1,10 +1,10 @@
 export const portfolioData = {
   name: "Cindy Kivala",
   title: "Full-Stack Engineer & Scrum Master",
-  tagline: "I build AI-integrated applications and lead agile teams to deliver enterprise-grade solutions",
+  tagline: "Full-stack developer specializing in building scalable applications and leading teams to deliver high-quality software solutions",
   stats: [
     { value: "100%", label: "Sprint Success" },
-    { value: "4+", label: "Projects" },
+    { value: "20+", label: "Projects" },
     { value: "45%", label: "Team Velocity ↑" }
   ],
   contact: {
