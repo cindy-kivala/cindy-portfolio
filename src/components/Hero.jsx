@@ -165,10 +165,10 @@ const Hero = () => {
               
               {/* Floating tech badges */}
               <div className="absolute -top-3 -right-3 w-14 h-14 bg-gradient-to-br from-primary-accent to-blue-500 rounded-full flex items-center justify-center shadow-lg animate-float z-30">
-                <span className="text-2xl">💻</span>
+                <span className="text-2xl">⚛︎</span>
               </div>
               <div className="absolute -bottom-3 -left-3 w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg animate-float-slow z-30">
-                <span className="text-2xl">🚀</span>
+                <span className="text-2xl">‧₊˚ ☁️⋅♡🪐༘⋆</span>
               </div>
               
               {/* Floating code brackets */}
