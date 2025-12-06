@@ -1,23 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Mail, Calendar, Send, Github, Linkedin, Twitter, CheckCircle } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
+import { Mail, Calendar, Github, Linkedin, CheckCircle } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 const Contact = () => {
   const { contact } = portfolioData;
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
   const contactRef = useRef([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-slide-up');
           }
@@ -33,25 +26,17 @@ const Contact = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const copyEmail = () => {
+    navigator.clipboard.writeText(contact.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      
-      setTimeout(() => setIsSubmitted(false), 3000);
-    }, 2000);
+  const copyEmailTemplate = () => {
+    const template = `Subject: Portfolio Inquiry\n\nHello Cindy,\n\nI saw your portfolio and was impressed by your work.\nI'd like to discuss [project/opportunity].\n\nBest regards,\n[Your Name]`;
+    navigator.clipboard.writeText(template);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -67,12 +52,12 @@ const Contact = () => {
             Get In <span className="velocity-text">Touch</span>
           </h2>
           <p className="text-xl text-primary-text max-w-2xl mx-auto">
-            Let's discuss how I can help bring your project to life with cutting-edge technology
+            Let's discuss how I can help bring your project to life
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Contact Cards - Animated from left */}
+        <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Contact Cards - Left Side */}
           <div className="space-y-6">
             {/* Email Card */}
             <div
@@ -81,8 +66,8 @@ const Contact = () => {
               style={{ animationDelay: '0s' }}
             >
               <a
-                href={`mailto:${contact.email}`}
-                className="block rounded-3xl p-6 magnetic-hover group"
+                href={`mailto:${contact.email}?subject=Portfolio Inquiry&body=Hello Cindy,%0D%0A%0D%0AI saw your portfolio and wanted to connect...`}
+                className="block rounded-3xl p-8 magnetic-hover group h-full"
                 style={{
                   background: 'rgba(17, 34, 64, 0.6)',
                   backdropFilter: 'blur(20px) saturate(180%)',
@@ -90,13 +75,15 @@ const Contact = () => {
                   border: '1px solid rgba(100, 255, 218, 0.15)',
                 }}
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary-accent to-blue-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary-accent/30">
-                    <Mail className="text-primary-dark" size={28} />
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary-accent to-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary-accent/30">
+                    <Mail className="text-primary-dark" size={32} />
                   </div>
-                  <div>
-                    <div className="text-primary-text text-sm mb-1">Email</div>
-                    <div className="text-white font-semibold">{contact.email}</div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Email Me</h3>
+                  <p className="text-primary-text mb-4">Click to open your email client</p>
+                  <div className="text-primary-accent font-semibold text-lg">{contact.email}</div>
+                  <div className="mt-4 text-sm text-primary-text">
+                    I respond within 24 hours
                   </div>
                 </div>
               </a>
@@ -109,7 +96,7 @@ const Contact = () => {
               style={{ animationDelay: '0.1s' }}
             >
               <div 
-                className="rounded-3xl p-6 magnetic-hover"
+                className="rounded-3xl p-8 magnetic-hover h-full"
                 style={{
                   background: 'rgba(17, 34, 64, 0.6)',
                   backdropFilter: 'blur(20px) saturate(180%)',
@@ -117,26 +104,31 @@ const Contact = () => {
                   border: '1px solid rgba(100, 255, 218, 0.15)',
                 }}
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/30">
-                    <Calendar className="text-white" size={28} />
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-purple-500/30">
+                    <Calendar className="text-white" size={32} />
                   </div>
-                  <div>
-                    <div className="text-primary-text text-sm mb-1">Response Time</div>
-                    <div className="text-white font-semibold">Within 24 hours</div>
-                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Response Time</h3>
+                  <p className="text-primary-text mb-4">I typically respond within</p>
+                  <div className="text-white font-bold text-3xl mb-2">24 hours</div>
+                  <p className="text-primary-text text-sm">
+                    Monday - Friday, 9 AM - 5 PM EAT
+                  </p>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Social Links */}
+          {/* Right Side - Email Tools & Social */}
+          <div className="space-y-6">
+            {/* Email Tools Card */}
             <div
               ref={(el) => (contactRef.current[2] = el)}
               className="contact-card opacity-0"
               style={{ animationDelay: '0.2s' }}
             >
               <div 
-                className="rounded-3xl p-6"
+                className="rounded-3xl p-8 h-full"
                 style={{
                   background: 'rgba(17, 34, 64, 0.6)',
                   backdropFilter: 'blur(20px) saturate(180%)',
@@ -144,151 +136,113 @@ const Contact = () => {
                   border: '1px solid rgba(100, 255, 218, 0.15)',
                 }}
               >
-                <div className="text-primary-text text-sm mb-4">Connect With Me</div>
-                <div className="flex gap-3">
+                <h3 className="text-2xl font-bold text-white mb-6 text-center">
+                  Quick Contact Tools
+                </h3>
+                
+                {/* Copy Email */}
+                <div className="mb-8">
+                  <div className="text-primary-text text-sm mb-2">Copy my email:</div>
+                  <div className="flex gap-2">
+                    <code className="flex-1 px-4 py-3 bg-primary-light/30 rounded-xl text-white font-mono truncate">
+                      {contact.email}
+                    </code>
+                    <button
+                      onClick={copyEmail}
+                      className="px-4 py-3 bg-primary-accent/20 text-primary-accent rounded-xl hover:bg-primary-accent/30 transition-colors duration-300 flex items-center gap-2"
+                    >
+                      {copied ? (
+                        <>
+                          <CheckCircle size={16} />
+                          Copied!
+                        </>
+                      ) : (
+                        'Copy'
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Email Template */}
+                <div>
+                  <div className="text-primary-text text-sm mb-2">Email template:</div>
+                  <div className="bg-primary-light/30 rounded-xl p-4 mb-4">
+                    <div className="text-white font-mono text-sm leading-relaxed">
+                      Subject: Portfolio Inquiry<br/><br/>
+                      Hello Cindy,<br/><br/>
+                      I saw your portfolio and was impressed by your work.<br/>
+                      I'd like to discuss [project/opportunity].<br/><br/>
+                      Best regards,<br/>
+                      [Your Name]
+                    </div>
+                  </div>
+                  <button
+                    onClick={copyEmailTemplate}
+                    className="w-full px-4 py-3 bg-primary-accent/20 text-primary-accent rounded-xl hover:bg-primary-accent/30 transition-colors duration-300 flex items-center justify-center gap-2"
+                  >
+                    {copied ? (
+                      <>
+                        <CheckCircle size={16} />
+                        Template Copied!
+                      </>
+                    ) : (
+                      'Copy Email Template'
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Links Card */}
+            <div
+              ref={(el) => (contactRef.current[3] = el)}
+              className="contact-card opacity-0"
+              style={{ animationDelay: '0.3s' }}
+            >
+              <div 
+                className="rounded-3xl p-8"
+                style={{
+                  background: 'rgba(17, 34, 64, 0.6)',
+                  backdropFilter: 'blur(20px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                  border: '1px solid rgba(100, 255, 218, 0.15)',
+                }}
+              >
+                <h3 className="text-2xl font-bold text-white mb-6 text-center">
+                  Connect With Me
+                </h3>
+                <div className="flex justify-center gap-6">
                   <a
                     href={`${contact.github}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-primary-light/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-primary-accent hover:text-primary-dark transition-all duration-300"
+                    className="w-16 h-16 bg-primary-light/50 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-primary-accent hover:text-primary-dark transition-all duration-300 group"
                     aria-label="GitHub"
                   >
-                    <Github size={20} />
+                    <Github size={28} className="group-hover:scale-110 transition-transform" />
                   </a>
                   <a
                     href={`${contact.linkedin}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-primary-light/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-primary-accent hover:text-primary-dark transition-all duration-300"
+                    className="w-16 h-16 bg-primary-light/50 backdrop-blur-sm rounded-2xl flex items-center justify-center hover:bg-primary-accent hover:text-primary-dark transition-all duration-300 group"
                     aria-label="LinkedIn"
                   >
-                    <Linkedin size={20} />
+                    <Linkedin size={28} className="group-hover:scale-110 transition-transform" />
                   </a>
-                  {/* <a
-                    href={`${contact.twitter}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 bg-primary-light/50 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-primary-accent hover:text-primary-dark transition-all duration-300"
-                    aria-label="Twitter"
-                  >
-                    <Twitter size={20} />
-                  </a> */}
                 </div>
+                <p className="text-center text-primary-text mt-6">
+                  Let's connect and build something amazing together
+                </p>
               </div>
             </div>
-          </div>
-
-          {/* Contact Form - Animated from right */}
-          <div 
-            ref={(el) => (contactRef.current[3] = el)}
-            className="lg:col-span-2 contact-card opacity-0"
-            style={{ animationDelay: '0.3s' }}
-          >
-            <form 
-              onSubmit={handleSubmit} 
-              className="rounded-3xl p-8 space-y-6"
-              style={{
-                background: 'rgba(17, 34, 64, 0.6)',
-                backdropFilter: 'blur(20px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                border: '1px solid rgba(100, 255, 218, 0.15)',
-              }}
-            >
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-primary-text text-sm mb-2">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-primary-light/50 backdrop-blur-sm border border-primary-accent/20 rounded-xl text-white focus:outline-none focus:border-primary-accent transition-colors duration-300"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-primary-text text-sm mb-2">
-                    Your Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-primary-light/50 backdrop-blur-sm border border-primary-accent/20 rounded-xl text-white focus:outline-none focus:border-primary-accent transition-colors duration-300"
-                    placeholder="youremail@gmail.com"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-primary-text text-sm mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-primary-light/50 backdrop-blur-sm border border-primary-accent/20 rounded-xl text-white focus:outline-none focus:border-primary-accent transition-colors duration-300"
-                  placeholder="Project Inquiry"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-primary-text text-sm mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="6"
-                  className="w-full px-4 py-3 bg-primary-light/50 backdrop-blur-sm border border-primary-accent/20 rounded-xl text-white focus:outline-none focus:border-primary-accent transition-colors duration-300 resize-none"
-                  placeholder="Tell me about your project..."
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting || isSubmitted}
-                className="w-full px-8 py-4 bg-primary-accent text-primary-dark font-semibold rounded-xl hover:shadow-lg hover:shadow-primary-accent/50 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed magnetic-hover"
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-primary-dark border-t-transparent rounded-full animate-spin" />
-                    Sending...
-                  </>
-                ) : isSubmitted ? (
-                  <>
-                    <CheckCircle size={20} />
-                    Message Sent!
-                  </>
-                ) : (
-                  <>
-                    <Send size={20} />
-                    Send Message
-                  </>
-                )}
-              </button>
-            </form>
           </div>
         </div>
 
         {/* Footer */}
         <div className="text-center mt-16 scroll-reveal">
           <p className="text-primary-text">
-            © 2025 Full-Stack Engineer & Scrum Master. Built with React & Tailwind CSS
+            © {new Date().getFullYear()} Cindy - Full-Stack Engineer & Scrum Master. Built with React & Tailwind CSS
           </p>
         </div>
       </div>
