@@ -101,7 +101,7 @@ const CursorEffects = () => {
         </div>
       ))}
 
-      <style jsx>{`
+      <style>{`
         @keyframes sparkFly {
           0% {
             transform: translateY(0) scale(1) rotate(var(--angle));

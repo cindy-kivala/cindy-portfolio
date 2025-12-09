@@ -14,41 +14,45 @@ export const portfolioData = {
     // twitter: "your-twitter"
   },
   projects: [
-    {
-      id: 1,
-      title: "ReelBrief",
-      description: "Full-stack SaaS platform connecting agencies with vetted freelancers",
-      tech: ["React", "Flask", "PostgreSQL", "Cloudinary", "SendGrid"],
-      liveUrl: "https://reel-brief-frontend.vercel.app/",
-      githubUrl: "#",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop"
-    },
-    {
-      id: 2,
-      title: "Cartify",
-      description: "Secure authentication, shopping cart, real-time inventory",
-      tech: ["React", "Flask", "PostgreSQL", "Redux"],
-      githubUrl: "#",
-      image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&auto=format&fit=crop"
-    },
-    {
-      id: 3,
-      title: "IndieGames",
-      description: "Browse and favorite indie games with advanced filtering",
-      tech: ["React", "JSON-Server", "JavaScript"],
-      liveUrl: "https://indiegames-db.netlify.app/",
-      githubUrl: "#",
-      image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800&auto=format&fit=crop"
-    },
-    {
-      id: 4,
-      title: "Fitness Logger",
-      description: "Track workouts with data visualization and analytics",
-      tech: ["Python", "SQLite"],
-      githubUrl: "#",
-      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop"
-    }
-  ],
+  {
+    id: 1,
+    title: "ReelBrief",
+    description: "Full-stack SaaS platform connecting agencies with vetted freelancers",
+    tech: ["React", "Flask", "PostgreSQL", "Cloudinary", "SendGrid"],
+    liveUrl: "https://reel-brief-frontend.vercel.app/",
+    githubUrl: "#",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=500&fit=crop&auto=format",
+    // Alternative: https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=500&fit=crop
+  },
+  {
+    id: 2,
+    title: "Cartify",
+    description: "Secure authentication, shopping cart, real-time inventory",
+    tech: ["React", "Flask", "PostgreSQL", "Redux"],
+    githubUrl: "#",
+    image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&h=500&fit=crop&auto=format",
+    // Alternative: https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=500&fit=crop
+  },
+  {
+    id: 3,
+    title: "IndieGames",
+    description: "Browse and favorite indie games with advanced filtering",
+    tech: ["React", "JSON-Server", "JavaScript"],
+    liveUrl: "https://indiegames-db.netlify.app/",
+    githubUrl: "#",
+    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=500&fit=crop&auto=format",
+    // Alternative: https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=800&h=500&fit=crop
+  },
+  {
+    id: 4,
+    title: "Fitness Logger",
+    description: "Track workouts with data visualization and analytics",
+    tech: ["Python", "SQLite"],
+    githubUrl: "#",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=500&fit=crop&auto=format",
+    // Alternative: https://images.unsplash.com/photo-1549060279-7e168fce7090?w=800&h=500&fit=crop
+  }
+],
   skills: [
     {
       category: "Frontend Development",

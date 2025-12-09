@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { Github, Linkedin, Mail, Twitter, Download, FileText } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 import Counter from './Counter';
 
@@ -114,15 +114,37 @@ const Hero = () => {
             </div>
           </div>
 
+          <div className="lg:hidden">
+            <button
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = '/Kivala Cindy CV.pdf';
+                link.download = 'CindyKivala_Resume.pdf';
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+              className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-primary-accent to-blue-500 text-primary-dark font-bold rounded-full hover:shadow-lg hover:shadow-primary-accent/50 transition-all"
+            >
+              <Download size={20} />
+              <FileText size={20} />
+              Download My Resume
+            </button>
+            <p className="text-center text-primary-text text-sm mt-2">
+              View my qualifications immediately
+            </p>
+          </div>
+
           {/* Right Content - Animated Avatar */}
           <div className="relative flex justify-center scroll-reveal" style={{ animationDelay: '0.2s' }}>
             <div 
               ref={containerRef}
               className="relative w-80 h-80 lg:w-96 lg:h-96 group"
             >
-              {/* Animated background rings */}
-              <div className="absolute inset-0 rounded-full border-2 border-primary-accent/10 animate-spin-slow" />
-              <div className="absolute inset-4 rounded-full border border-blue-500/10 animate-spin-slow-reverse" />
+              {/* Animated background rings - NO SPINNING */}
+              <div className="absolute inset-0 rounded-full border-2 border-primary-accent/10 animate-pulse-ring" />
+              <div className="absolute inset-4 rounded-full border border-blue-500/10 animate-pulse-ring-slow" />
               
               {/* Glow effect that follows mouse */}
               <div 
@@ -134,41 +156,41 @@ const Hero = () => {
                 }}
               />
               
-              {/* Main avatar container with parallax */}
+              {/* Main avatar container with controlled hover */}
               <div 
                 className="relative z-20 w-full h-full rounded-full overflow-hidden border-2 border-transparent group-hover:border-primary-accent/30 transition-all duration-500"
                 style={{
-                  transform: `perspective(1000px) rotateY(${mousePosition.x * 3}deg) rotateX(${-mousePosition.y * 3}deg) scale(${1 + Math.abs(mousePosition.x) * 0.02})`,
+                  transform: `scale(${1 + Math.abs(mousePosition.x) * 0.01})`,
                 }}
               >
-                {/* Subtle float animation */}
-                <div className="animate-gentle-float">
+                {/* Subtle bounce animation */}
+                <div className="animate-soft-bounce">
                   <img
-                    src="/avataaars.png"
+                    src="/PinkTheme.jpg"
                     alt="Cindy - Software Engineer"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   
                   {/* Dynamic shine overlay */}
                   <div 
-                    className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-700"
+                    className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700"
                     style={{
                       background: `linear-gradient(45deg, 
                         transparent 30%, 
                         rgba(255, 255, 255, 0.15) 50%, 
                         transparent 70%)`,
-                      transform: `translateX(${mousePosition.x * 15}px) translateY(${mousePosition.y * 15}px)`,
+                      transform: `translateX(${mousePosition.x * 10}px) translateY(${mousePosition.y * 10}px)`,
                     }}
                   />
                 </div>
               </div>
               
               {/* Floating tech badges */}
-              <div className="absolute -top-3 -right-3 w-14 h-14 bg-gradient-to-br from-primary-accent to-blue-500 rounded-full flex items-center justify-center shadow-lg animate-float z-30">
-                <span className="text-2xl">⚛︎</span>
+              <div className="absolute -top-3 -right-3 w-14 h-14 bg-gradient-to-br from-primary-accent to-blue-500 rounded-full flex items-center justify-center shadow-lg animate-orbital-1 z-30">
+                <span className="text-2xl">⚛</span>
               </div>
-              <div className="absolute -bottom-3 -left-3 w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg animate-float-slow z-30">
-                <span className="text-2xl">‧₊˚ ☁️⋅♡🪐༘⋆</span>
+              <div className="absolute -bottom-3 -left-3 w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg animate-orbital-2 z-30">
+                <span className="text-2xl">‧₊˚ ☁️⋅♡🪐༘⋆  </span>
               </div>
               
               {/* Floating code brackets */}
@@ -179,7 +201,7 @@ const Hero = () => {
                 <span className="text-3xl text-blue-500 opacity-60">{'}'}</span>
               </div>
               
-              {/* Floating particles */}
+              {/* Floating particles - Keep these! */}
               <div className="absolute inset-0 pointer-events-none">
                 {[...Array(8)].map((_, i) => (
                   <div
@@ -200,67 +222,149 @@ const Hero = () => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
       {/* Inline styles for animations */}
-      <style jsx>{`
-        @keyframes gentle-float {
+      <style>{`
+        @keyframes soft-bounce {
           0%, 100% {
             transform: translateY(0);
           }
           50% {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
           }
         }
-        
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
+
+        @keyframes pulse-ring {
+          0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(100, 255, 218, 0.3);
           }
-          to {
-            transform: rotate(360deg);
+          70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 20px rgba(100, 255, 218, 0);
           }
-        }
-        
-        @keyframes spin-slow-reverse {
-          from {
-            transform: rotate(360deg);
-          }
-          to {
-            transform: rotate(0deg);
+          100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(100, 255, 218, 0);
           }
         }
-        
-        @keyframes floatParticle {
-          0%, 100% {
-            transform: translate(0, 0);
+
+        @keyframes pulse-ring-slow {
+          0% {
+            transform: scale(0.98);
             opacity: 0.3;
           }
           50% {
-            transform: translate(15px, -15px);
-            opacity: 0.7;
+            transform: scale(1.02);
+            opacity: 0.5;
+          }
+          100% {
+            transform: scale(0.98);
+            opacity: 0.3;
           }
         }
-        
-        .animate-gentle-float {
-          animation: gentle-float 6s ease-in-out infinite;
+
+        @keyframes orbital-1 {
+          0% {
+            transform: rotate(0deg) translateX(30px) rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg) translateX(30px) rotate(-360deg);
+          }
         }
-        
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
+
+        @keyframes orbital-2 {
+          0% {
+            transform: rotate(0deg) translateX(25px) rotate(0deg);
+          }
+          100% {
+            transform: rotate(-360deg) translateX(25px) rotate(360deg);
+          }
         }
-        
-        .animate-spin-slow-reverse {
-          animation: spin-slow-reverse 25s linear infinite;
+
+        @keyframes morph-border {
+          0%, 100% {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+          }
+          50% {
+            border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+          }
         }
-        
+
+        @keyframes soft-pulse {
+          0%, 100% {
+            transform: scale(1);
+            filter: brightness(1);
+          }
+          50% {
+            transform: scale(1.02);
+            filter: brightness(1.05);
+          }
+        }
+
+        @keyframes shine {
+          0% {
+            background-position: -100% -100%;
+          }
+          100% {
+            background-position: 200% 200%;
+          }
+        }
+
+        @keyframes floatParticle {
+          0%, 100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.2;
+          }
+          33% {
+            transform: translate(10px, -15px) scale(1.1);
+            opacity: 0.4;
+          }
+          66% {
+            transform: translate(-5px, 10px) scale(0.9);
+            opacity: 0.3;
+          }
+        }
+
+        /* Animation classes */
+        .animate-soft-bounce {
+          animation: soft-bounce 4s ease-in-out infinite;
+        }
+
+        .animate-pulse-ring {
+          animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .animate-pulse-ring-slow {
+          animation: pulse-ring-slow 5s ease-in-out infinite;
+        }
+
+        .animate-orbital-1 {
+          animation: orbital-1 10s linear infinite;
+        }
+
+        .animate-orbital-2 {
+          animation: orbital-2 15s linear infinite;
+        }
+
+        .animate-morph-border {
+          animation: morph-border 8s ease-in-out infinite;
+        }
+
+        .animate-soft-pulse {
+          animation: soft-pulse 4s ease-in-out infinite;
+        }
+
+        .animate-shine {
+          animation: shine 3s linear infinite;
+          background-size: 200% 200%;
+        }
+
         .animate-float {
-          animation: gentle-float 5s ease-in-out infinite;
-        }
-        
-        .animate-float-slow {
-          animation: gentle-float 7s ease-in-out infinite;
+          animation: soft-bounce 6s ease-in-out infinite;
         }
       `}</style>
     </section>

@@ -151,7 +151,7 @@ const Timeline = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .timeline-item.slide-from-left {
           transform: translateX(-100px);
         }

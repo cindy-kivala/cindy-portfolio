@@ -6,6 +6,9 @@ import Skills from './components/Skills';
 import Timeline from './components/Timeline';
 import Contact from './components/Contact';
 import BusinessCard from './components/BusinessCard';
+import MobileBottomNav from './components/MobileBottomNav';
+// import MobileResumeButton from './components/MobileResumeButton';
+import MobileBusinessCard from './components/MobileBusinessCard';
 //import Footer from './components/Footer';
 
 // Background Options - Choose ONE:
@@ -82,6 +85,10 @@ function App() {
 
         {/* Business Card */}
         <BusinessCard />
+
+        <MobileBottomNav />
+        {/* <MobileResumeButton /> */}
+        <MobileBusinessCard />
       </div>
     </>
   );

@@ -113,7 +113,7 @@ const Skills = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .progress-bar.animate-progress {
           animation: fillBar 1.5s ease-out forwards;
         }
